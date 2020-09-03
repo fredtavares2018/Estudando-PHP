@@ -36,20 +36,9 @@ CREATE TABLE `clientes_fazenda` (
   `id` int(5) NOT NULL,
   `nome` text NOT NULL,
   `email` varchar(100) NOT NULL,
-  `telefone` varchar(30) NOT NULL
+  `telefone` varchar(30) NOT NULL,
+  `link_imagem` text NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `clientes_fazenda`
---
-
-INSERT INTO `clientes_fazenda` (`id`, `nome`, `email`, `telefone`) VALUES
-(1, 'Fred', 'nordesttino@hotmail.com', '12345'),
-(2, 'Gabriel', 'gab@teste', '1234567'),
-(3, 'Rafael', 'rab@teste', '12345678'),
-(4, 'Miguel', 'mab@testes', '12345'),
-(5, 'Susie ', 'susie@teste', '12345'),
-
 
 --
 -- Indexes for table `clientes_fazenda`
