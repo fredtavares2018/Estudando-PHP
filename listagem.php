@@ -31,22 +31,22 @@ $query_cadastros = mysqli_query($conx, $buscar_cadastros) or die(mysqli_error($c
             $nome = $receber_dados['nome'];
             $email = $receber_dados['email'];
             $telefone = $receber_dados['telefone'];
+            $link_imagem = $receber_dados['link_imagem'];
 
         ?>
             <tr class="">
-                <form action="editar.php" method="POST">
-                    <td class=""><?php echo $id; ?></td>
+                <form action="editar.php" method="POST" enctype="multipart/form-data">
+                    <td><img src="<?php echo $link_imagem; ?>" width="150"></td>
                     <td class=""><input type="text" name ="nome" value="<?php echo $nome; ?>"></td>
                     <td class=""><input type="text" name ="email" value="<?php echo $email; ?>"></td>
                     <td class=""><input type="text" name ="telefone" value="<?php echo $telefone; ?>"></td>
                     <td class="">
-
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="submit" value="Editar">
                     </td>
                 </form>
                 <td>
-                <form action="excluir.php" method="POST">
+                <form action="excluir.php" method="POST" >
                     <input type="hidden" name="id" value="<?php echo $id; ?>">
                     <input type="submit" value="Excluir">
                 </form>
@@ -55,11 +55,13 @@ $query_cadastros = mysqli_query($conx, $buscar_cadastros) or die(mysqli_error($c
 
         <?php }; ?>
         <tr>
-            <form action="cadastro.php" method="POST">
+            <form action="cadastro.php" method="POST" enctype="multipart/form-data">
                 <td></td>
                 <td><input type="text" name="nome" placeholder="seu nome"></td>
                 <td><input type="text" name="email" placeholder="seu email"></td>
                 <td><input type="text" name="telefone" placeholder="seu telefone"></td>
+                <td>
+                <input type="file" name="fileUpload" ></td>
                 <td><input type="submit" value="NOVO CADASTRO"></td>
             </form>
         </tr>
