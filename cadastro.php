@@ -35,6 +35,6 @@ VALUES ('','$nome','$email','$telefone','$link_imagem')";
 
 $query_cadastros = mysqli_query($conx, $buscar_cadastros) or die(mysqli_error($conx));
 
-//header('location: listagem.php');
+header('location: listagem.php');
 
 ?>
