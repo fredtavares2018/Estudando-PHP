@@ -1,2 +1,5 @@
 # crud_php
-Simples CRUD
+
+-> Simples CRUD
+-> Exemplo cadastro com switch
+

@@ -2,7 +2,7 @@
 
 // verificador ternário
 
-$verificando = isset($_GET['teste']) ? $_GET['teste']:"nada";
+$verificando = isset($_POST['teste']) ? $_POST['teste']:"nada";
 
 //echo $verificando;
 
