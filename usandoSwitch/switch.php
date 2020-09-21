@@ -1,11 +1,11 @@
 <?php
 
+// recebendo o valor vindo da página cadastro.php
 // verificador ternário
+$verificando = isset($_POST['teste']) ? $_POST['teste']:"";
 
-$verificando = isset($_GET['teste']) ? $_GET['teste']:"nada";
-
+//recebe e verifica o que deve ser feito
 //echo $verificando;
-
 switch ($verificando) {
     case "1":
         echo " valor encontrado = 1";
@@ -16,7 +16,7 @@ switch ($verificando) {
     case "3":
         echo " valor encontrado = 3";
         break;
-    case "nada":
+    case "":
         echo " valor encontrado = nada";
         break;
  }
