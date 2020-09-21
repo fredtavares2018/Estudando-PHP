@@ -1,7 +1,9 @@
 <form action="switch.php" method="POST" enctype="multipart/form-data">
-                <td></td>
-                <td><input type="text" name="nome" placeholder="seu nome"></td>
-                <td><input type="text" name="email" placeholder="seu email"></td>
-                <td><input type="text" name="telefone" placeholder="seu telefone"></td>
-                <td><input type="submit" value="NOVO CADASTRO"></td>
+                <select name="teste" >
+                <option value="1">Teste 01</option>
+                <option value="2">Teste 02</option>
+                <option value="3">Teste 03</option>
+                <option value="">NADA</option>
+                </select>
+                <input type="submit" value="NOVO CADASTRO">
             </form>

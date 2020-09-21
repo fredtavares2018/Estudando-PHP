@@ -2,7 +2,7 @@
 
 // verificador ternário
 
-$verificando = isset($_POST['teste']) ? $_POST['teste']:"nada";
+$verificando = isset($_POST['teste']) ? $_POST['teste']:"";
 
 //echo $verificando;
 
@@ -16,7 +16,7 @@ switch ($verificando) {
     case "3":
         echo " valor encontrado = 3";
         break;
-    case "nada":
+    case "":
         echo " valor encontrado = nada";
         break;
  }
