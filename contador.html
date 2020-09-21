@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #display {
+            font-size: 50px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <input type="button" value="Começar" id="btn-start" /><br>
+    <input type="text" id="display" /><br>
+    <input type="button" value="Parar" id="btn-stop" />
+
+    <script>
+        var btnStart = document.getElementById('btn-start');
+        var btnStop = document.getElementById('btn-stop');
+        var display = document.getElementById('display');
+        var id = null;
+
+        btnStart.onclick = function() {
+            // A animação não será reiniciada caso
+            // já tenha sido iniciada
+            if (!id) {
+                // A mágica...
+                id = setInterval(function() {
+                    display.value = Number(display.value) + 1;
+                }, 100);
+            }
+        }
+        btnStop.onclick = function() {
+            // Desliga a animação mas
+            // o valor de `id` continua sendo válido (true)
+            clearInterval(id);
+            // Anulamos o valor da variável id,
+            // é como se ela fosse uma variável de controle
+            id = null;
+        }
+    </script>
+
+</body>
+
+</html>
