@@ -2,6 +2,7 @@
 
 include "conecxao.php";
 
+
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 $telefone = $_POST['telefone'];
@@ -38,3 +39,4 @@ $query_cadastros = mysqli_query($conx, $buscar_cadastros) or die(mysqli_error($c
 header('location: listagem.php');
 
 ?>
+
