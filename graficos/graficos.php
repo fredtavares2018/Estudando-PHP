@@ -1,82 +1,89 @@
 <?php
 
-include 'conexao.php';
+include 'conecxao.php';
 
 $buscar_cadastros = "SELECT * FROM dados ";
 $query_cadastros = mysqli_query($connx, $buscar_cadastros);
+$query_cadastros_labels = mysqli_query($connx, $buscar_cadastros);
+$query_cadastros_dados = mysqli_query($connx, $buscar_cadastros);
+
+$buscar_cadastros_eixo_x = "SELECT * FROM eixo_x ";
+$query_cadastros_eixo_x = mysqli_query($connx, $buscar_cadastros_eixo_x);
+$query_cadastros_eixo_x2 = mysqli_query($connx, $buscar_cadastros_eixo_x);
+
 
 ?>
 
 
 
 <!doctype html>
-<html lang="en">
+<html lang="pt">
 
 <head>
-	<title>Line Chart</title>
-	<script src="../../../../dist/2.9.4/Chart.min.js"></script>
-	<script src="../../utils.js"></script>
+	<title>Estudando Gráficos</title>
+	<!-- Bibliotecas do charts -->
+	<script src="js/Chart.min.js"></script>
+	<script src="js/utils.js"></script>
 	<style>
-	canvas{
-		-moz-user-select: none;
-		-webkit-user-select: none;
-		-ms-user-select: none;
-	}
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
 	</style>
 </head>
 
 <body>
 	<div style="width:75%;">
+	Clique no nome da DISCIPLINA para desativar
 		<canvas id="canvas"></canvas>
 	</div>
 	<br>
 	<br>
-	<button id="randomizeData">Randomize Data</button>
-	<button id="addDataset">Add Dataset</button>
-	<button id="removeDataset">Remove Dataset</button>
-	<button id="addData">Add Data</button>
-	<button id="removeData">Remove Data</button>
+
 	<script>
-		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		// aqui podemos definir todos as representações do eixo OX
+		var EixoX = [<?php while ($recebe_eixos = mysqli_fetch_array($query_cadastros_eixo_x)) {
+
+							echo "'" . $recebe_eixos['nomes'] . "',";
+						}; ?>];
+
 		var config = {
 			type: 'line',
 			data: {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-				datasets: [{
-					label: 'My First dataset',
-					backgroundColor: window.chartColors.red,
-					borderColor: window.chartColors.red,
-					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
-					],
-					fill: false,
-				}, {
-					label: 'My Second dataset',
-					fill: false,
-					backgroundColor: window.chartColors.blue,
-					borderColor: window.chartColors.blue,
-					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
-					],
-				}]
+				labels: [<?php while ($recebe_eixos2 = mysqli_fetch_array($query_cadastros_eixo_x2)) {
+
+								echo "'" . $recebe_eixos2['nomes'] . "',";
+							}; ?>],
+				datasets: [
+					// aqui fazemos um laço de repetição para gerar todos os gráficos
+					<?php  while($recebe_labels = mysqli_fetch_array($query_cadastros_labels)){
+						$nome_grafico = $recebe_labels['id_nome_grafico']; ?>
+					 {
+						// aqui recebe o nome dos dados
+						label: <?php echo "'" . $recebe_labels['Nome_Dado'] . "'"; ?>,
+						// aqui recebe a cor de cada linha
+						backgroundColor: window.chartColors.<?php echo $recebe_labels['cor']; ?>,
+						borderColor: window.chartColors.<?php echo $recebe_labels['cor']; ?>,
+						// aqui recebe os dados, valores
+						data: [
+							<?php echo "'" . $recebe_labels['dUm'] . "'"; ?>,
+							<?php echo "'" . $recebe_labels['dDois'] . "'"; ?>,
+							<?php echo "'" . $recebe_labels['dTres'] . "'"; ?>,
+							<?php echo "'" . $recebe_labels['dQuatro'] . "'"; ?>,
+							<?php echo "'" . $recebe_labels['dCinco'] . "'"; ?>,	
+						],
+						fill: false,
+					},
+					<?php }; ?>
+				]
 			},
 			options: {
 				responsive: true,
 				title: {
 					display: true,
-					text: 'Chart.js Line Chart'
+					// aqui recebo o nome do gráfico(podemos fazer pelo INNER JOIN)
+					text: <?php if($nome_grafico == 1){echo "'Médias'"; } ?>,
 				},
 				tooltips: {
 					mode: 'index',
@@ -91,14 +98,14 @@ $query_cadastros = mysqli_query($connx, $buscar_cadastros);
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'Month'
+							labelString: 'Referências'
 						}
 					}],
 					yAxes: [{
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'Value'
+							labelString: 'Resultados'
 						}
 					}]
 				}
@@ -143,7 +150,7 @@ $query_cadastros = mysqli_query($connx, $buscar_cadastros);
 
 		document.getElementById('addData').addEventListener('click', function() {
 			if (config.data.datasets.length > 0) {
-				var month = MONTHS[config.data.labels.length % MONTHS.length];
+				var month = EixoX[config.data.labels.length % EixoX.length];
 				config.data.labels.push(month);
 
 				config.data.datasets.forEach(function(dataset) {
